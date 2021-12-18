@@ -9,4 +9,6 @@ module.exports = cleanEnv(process.env, {
   RESOURCES_FOLDER: str({ devDefault: path.join(__dirname, '..', 'hardhat', 'resources') }),
   MINTS_QUEUE_NAME: str({ default: 'mints' }),
   MINTS_QUEUE_CONCURRENCY: num({ default: 5 }),
+  FLEEK_STORAGE_API_KEY: str({ devDefault: '' }),
+  FLEEK_STORAGE_API_SECRET: str({ devDefault: '' }),
 });
