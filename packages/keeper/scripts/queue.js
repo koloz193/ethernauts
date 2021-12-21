@@ -1,7 +1,7 @@
 const { Queue } = require('bullmq');
 const { getContractFromAbi } = require('@ethernauts/hardhat/src/utils/hardhat');
 const config = require('../src/config');
-const parseMintEvent = require('../src/parse-mint-event');
+const parseMint = require('../src/parse-mint');
 
 const mintsQueue = new Queue(config.MINTS_QUEUE_NAME, {
   connection: {
@@ -20,11 +20,11 @@ async function main() {
   console.log(`Listening for events on Ethernauts token at ${Ethernauts.address}`);
 
   Ethernauts.on('Transfer', (...args) => {
-    const result = parseMintEvent(...args);
+    const result = parseMint(...args);
 
     if (result) {
-      const { tokenId, to } = result;
-      mintsQueue.add('mints', { tokenId, to });
+      const { to, tokenId } = result;
+      mintsQueue.add('mints', { to, tokenId });
       console.log(`Mint detected, tokenId: ${tokenId}`);
     }
   });

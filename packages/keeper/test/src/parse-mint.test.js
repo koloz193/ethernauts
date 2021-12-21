@@ -1,8 +1,8 @@
 const { deepEqual } = require('assert/strict');
 const { ethers } = require('hardhat');
-const parseMintEvent = require('../../src/parse-mint-event');
+const parseMint = require('../../src/parse-mint');
 
-describe('src/parse-mint-event.js', function () {
+describe('src/parse-mint.js', function () {
   let owner, Ethernauts;
 
   before('identify signers', async function () {
@@ -38,7 +38,7 @@ describe('src/parse-mint-event.js', function () {
 
       return await new Promise((resolve) => {
         Ethernauts.once('Transfer', async (...args) => {
-          resolve(parseMintEvent(...args));
+          resolve(parseMint(...args));
         });
       });
     }

@@ -1,11 +1,6 @@
 const { Worker } = require('bullmq');
 const config = require('../src/config');
-
-async function mintsProcessor(job) {
-  // TODO: Get job data and if a new batch was triggered, upload the necessary
-  //       resources to the IPFS server.
-  console.log('processed: ', JSON.stringify(job));
-}
+const mintsProcessor = require('../src/mints-processor');
 
 (async () => {
   const worker = new Worker(config.MINTS_QUEUE_NAME, mintsProcessor, {
