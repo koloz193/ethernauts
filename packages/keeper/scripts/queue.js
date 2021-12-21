@@ -19,6 +19,7 @@ async function main() {
   console.log(`Listening for events on Ethernauts token at ${Ethernauts.address}`);
 
   Ethernauts.on('Transfer', async (from, to, amount, evt) => {
+    console.log({ from, to, amount });
     if (from !== '0x0000000000000000000000000000000000000000') return;
     const tokenId = evt.args.tokenId.toString();
     console.log(`Mint detected, tokenId: ${tokenId}`);
