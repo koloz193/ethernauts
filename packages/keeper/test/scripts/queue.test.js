@@ -25,6 +25,12 @@ describe('scripts/queue.js', function () {
   });
 
   it('enqueues a mint job when receiving a Transfer event', async function () {
+    Ethernauts.once('Transfer', async (from, to, amount, evt) => {
+      if (from !== '0x0000000000000000000000000000000000000000') return;
+      const tokenId = evt.args.tokenId.toString();
+      console.log(JSON.stringify({ from, to, amount, tokenId }));
+    });
+
     const tx = await Ethernauts.mint({
       value: hre.ethers.utils.parseEther('0.6'),
     });
